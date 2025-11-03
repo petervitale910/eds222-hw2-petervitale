@@ -115,9 +115,6 @@ return(trout_coefs)
 }
 
 
-
-
-
 n_30 <- map_dbl(1:1000, ~ p_dist(30))
 n_30_fraction <- sum(n_30 < .05) / length(n_30)
 
