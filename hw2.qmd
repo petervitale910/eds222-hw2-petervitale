@@ -33,11 +33,26 @@ From a coding perspective, make your lake population should a data frame with on
 
 ```{r}
 #| label: sim-pop
+lake_trout <- rnorm(100000, 100, 20)
+
+cutthroat <- rnorm(100000, mean = 800 - 2.5*lake_trout, sd = 120)
+
+trout_sp <- data.frame(lake_trout, cutthroat)
 
 ```
 
 ```{r}
 #| label: fig-pop
+trout_sample  <- trout_sp[sample(nrow(trout_sp), 300), ]
+
+
+ggplot(trout_sample, aes(x = lake_trout, y = cutthroat))+
+  geom_point()+
+  labs(x = 'Lake Trout',
+       y = 'Cutthroat Trout',
+       title = 'Sample of Relationship between Trout species',
+       subtitle = 'Plot of 300 random points (originally 100,000 points)')+
+  ggthemes::theme_clean()
 
 ```
 
@@ -49,6 +64,8 @@ Use `lm()` to estimate each of the coefficients.
 
 ```{r}
 #| label: pop-spl-coefs
+
+trout_lm <- lm(cutthroat ~ lake_trout, trout_sp);summary(trout_lm)
 
 ```
 
