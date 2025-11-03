@@ -131,6 +131,8 @@ print(paste('At n = 100 the sample results in p_values below .05 in', n_100_frac
 
 Consider your results in the context of a lake resource manager. This resource manager is trying to decide if increasing lake trout abundances are causing a decline in cutthroat trout. They collect data from thirty lakes, fit a linear model, and find a p value for the coefficient of lake trout of 0.11. The manager says "With a p value this high, I don't think lake trout are causing the decline." **How would you respond to the manager's interpretation?**
 
+I would respond that the initial interpretation makes sense, however thirty lakes may not be enough to see a full relationship. With sample data we can see that the n(30) leads to roughly half of the p-values being higher than .05. 
+
 ## How much do lake trout affect cutthroat trout?
 
 Now we'll answer the question "how much do lake trout affect cutthroat trout?" with a confidence interval. This part of the homework will use bootstrapping to estimate the confidence interval for the lake trout coefficient. You'll repeat this process for both a large and a small sample, comparing how the sample size affects the width of the confidence interval.
@@ -150,6 +152,33 @@ Then, repeat this process for a smaller sample size. Draw `small_sample` with 30
 ```{r}
 #| label: boot-beta1
 
+big_sample  <- trout_sp[sample(nrow(trout_sp), 100), ]
+
+big_boot <- map_dbl(1:1000, function(i){
+boot_sample = sample(nrow(big_sample), 100, replace = TRUE)
+one_boot <- big_sample[boot_sample, ]
+trout_lm <- lm(cutthroat ~ lake_trout, one_boot)
+trout_lm_summary <- summary(trout_lm)
+trout_coefs <- trout_lm_summary$coefficients[2, 4]
+return(trout_coefs)
+  })
+
+small_sample <- trout_sp[sample(nrow(trout_sp), 30), ]
+
+small_boot <- map_dbl(1:1000, function(i){
+boot_sample = sample(nrow(big_sample), 30, replace = TRUE)
+one_boot <- big_sample[boot_sample, ]
+trout_lm <- lm(cutthroat ~ lake_trout, one_boot)
+trout_lm_summary <- summary(trout_lm)
+trout_coefs <- trout_lm_summary$coefficients[2, 4]
+return(trout_coefs)
+  })
+
+print('The 95% ci for the n_100 bootstrap is between: ')
+print(paste(quantile(big_boot, probs = .025),'and', quantile(big_boot, probs = .975)))
+
+print('The 95% ci for the n_30 bootstrap is between: ')
+print(paste(quantile(small_boot, probs = .025),'and', quantile(small_boot, probs = .975)))
 ```
 
 ## Visualizing the effect of lake trout on cutthroat
