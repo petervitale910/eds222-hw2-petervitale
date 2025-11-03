@@ -106,6 +106,30 @@ Call `p_dist` for `n`'s of 30, 50, and 100. **What fraction of the p values are 
 ```{r}
 #| label: small-n-pval
 
+p_dist <- function(n){
+trout_sample  <- trout_sp[sample(nrow(trout_sp), n), ]
+trout_lm <- lm(cutthroat ~ lake_trout, trout_sample)
+trout_lm_summary <- summary(trout_lm)
+trout_coefs <- trout_lm_summary$coefficients[2, 4]
+return(trout_coefs)
+}
+
+
+
+
+
+n_30 <- map_dbl(1:1000, ~ p_dist(30))
+n_30_fraction <- sum(n_30 < .05) / length(n_30)
+
+n_50 <-map_dbl(1:1000, ~ p_dist(50))
+n_50_fraction <- sum(n_50 < .05) / length(n_50)
+
+n_100 <-map_dbl(1:1000, ~ p_dist(100))
+n_100_fraction <- sum(n_100 < .05) / length(n_100)
+
+print(paste('At n = 30 the sample results in p_values below .05 in', n_30_fraction * 100,'% of the cases'))
+print(paste('At n = 50 the sample results in p_values below .05 in', n_50_fraction * 100,'% of the cases'))
+print(paste('At n = 100 the sample results in p_values below .05 in', n_100_fraction * 100,'% of the cases'))
 ```
 
 Consider your results in the context of a lake resource manager. This resource manager is trying to decide if increasing lake trout abundances are causing a decline in cutthroat trout. They collect data from thirty lakes, fit a linear model, and find a p value for the coefficient of lake trout of 0.11. The manager says "With a p value this high, I don't think lake trout are causing the decline." **How would you respond to the manager's interpretation?**
