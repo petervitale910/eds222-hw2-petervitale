@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name Here">
+
+<title>EDS 222: Homework 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="hw2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="hw2_files/libs/quarto-html/quarto.js"></script>
+<script src="hw2_files/libs/quarto-html/popper.min.js"></script>
+<script src="hw2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="hw2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="hw2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="hw2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="hw2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="hw2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="hw2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EDS 222: Homework 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name Here </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<p>In this homework you will:</p>
+<ul>
+<li><p>Use <strong>simulation</strong> to generate samples from a known population.</p></li>
+<li><p>Apply randomization and mathematical techniques to estimate <strong>p-values</strong> and <strong>confidence intervals</strong>.</p></li>
+<li><p><strong>Visualize</strong> the predictions of models with uncertainty.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="dv">14</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-your-population-and-samples" class="level2">
+<h2 class="anchored" data-anchor-id="create-your-population-and-samples">Create your population and samples</h2>
+<p>Imagine a fictitious population of lakes. Each lake has both <em>native cutthroat trout and invasive lake trout</em>. Lake trout prey on cutthroat trout, suppressing the abundance of the native species.</p>
+<p>Simulate a population of 100,000 lakes. Each lake should have a random number of lake trout in it. In this population, lakes hold an average of 100 lake trout with a standard deviation of 20. Assume the distribution of lake trout is normal. When there are no lake trout, the average lake holds 800 cutthroat trout. On average, each additional lake trout reduces the cutthroat trout population by 2.5. The standard deviation of cutthroat trout in a lake is 120.</p>
+<p>From a coding perspective, make your lake population should a data frame with one row per lake and columns for the abundance of lake trout and cutthroat trout. Call this data frame <code>lake_pop</code>. <strong>Simulate the population according to the description above, then make a scatter plot showing the relationship between lake and cutthroat trout</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lake_trout <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cutthroat <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="dv">800</span> <span class="sc">-</span> <span class="fl">2.5</span><span class="sc">*</span>lake_trout, <span class="at">sd =</span> <span class="dv">120</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>trout_sp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(lake_trout, cutthroat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trout_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">300</span>), ]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(trout_sample, <span class="fu">aes</span>(<span class="at">x =</span> lake_trout, <span class="at">y =</span> cutthroat))<span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Lake Trout'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Cutthroat Trout'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Sample of Relationship between Trout species'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">'Plot of 300 random points (originally 100,000 points)'</span>)<span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_clean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pop" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="hw2_files/figure-html/fig-pop-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: <strong>?(caption)</strong></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From this population, draw three samples with 30 observations each. Call them <code>lake_spl1</code>, <code>lake_spl2</code>, and <code>lake_spl3</code>.</p>
+<p><strong>What’s the coefficient for the effect of lake trout on cutthroat trout in your population? What is it in each of your three samples?</strong></p>
+<p>Use <code>lm()</code> to estimate each of the coefficients.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, trout_sp);<span class="fu">summary</span>(trout_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = cutthroat ~ lake_trout, data = trout_sp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-526.63  -80.86   -0.09   80.77  504.29 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 802.22844    1.94336   412.8   &lt;2e-16 ***
+lake_trout   -2.51602    0.01905  -132.1   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 120.5 on 99998 degrees of freedom
+Multiple R-squared:  0.1485,    Adjusted R-squared:  0.1485 
+F-statistic: 1.744e+04 on 1 and 99998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="do-lake-trout-affect-cutthroat-trout" class="level2">
+<h2 class="anchored" data-anchor-id="do-lake-trout-affect-cutthroat-trout">Do lake trout affect cutthroat trout?</h2>
+<p>In our population of lakes, the abundance of lake trout has a <em>real effect</em> on cutthroat trout. We know this to be true because that’s how we defined the population. But that doesn’t mean that every sample can reject the null hypothesis. By random chance, you just might draw a sample that’s too probable under the null hypothesis to reject.</p>
+<p>Failing to reject a null hypothesis when the effect is real is a limitation of small samples. In this part of the homework, you’ll demonstrate that larger samples are more likely to correctly reject the null hypothesis using mathematical models for inference.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ve seen p values in model summary tables. Here’s one highlighted in a model fit to the Palmer penguins data.</p>
+<p><img src="images/coef_summary.png" class="img-fluid" width="500"></p>
+<p>That coefficient table, including the p values, is accessible through the model summary object. Here’s an example of how to get the p value for <code>body_mass_g</code> in the model above.</p>
+<pre><code># Fit the model
+penguin_model &lt;- lm(flipper_length_mm ~ body_mass_g, penguins)
+# Get the model summary
+penguin_summary &lt;- summary(penguin_model)
+# penguin_summary$coefficients is the coefficient table
+penguin_summary$coefficients
+# body_mass_g is the second coef (after the intercept) and the p
+# value is in the fourth column.
+body_mass_g_pval &lt;- penguin_summary$coefficients[2, 4]</code></pre>
+</div>
+</div>
+<p>Write a function called <code>p_dist</code> that takes one parameter, <code>n</code>, representing the size of the sample. Inside <code>p_dist</code>, use <code>map_dbl()</code> to create a vector of 1,000 p values. Generate your p values by doing the following:</p>
+<ol type="1">
+<li>Draw a sample of <code>n</code> observations from <code>lake_pop</code></li>
+<li>Fit a linear model to the sample</li>
+<li>Extract the p-value of the lake trout coefficient</li>
+</ol>
+<p>Call <code>p_dist</code> for <code>n</code>’s of 30, 50, and 100. <strong>What fraction of the p values are less than 0.05 for each sample size?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span>{</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>trout_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), n), ]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, trout_sample)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>n_30_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>n_50_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>n_100_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 30 the sample results in p_values below .05 in'</span>, n_30_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "At n = 30 the sample results in p_values below .05 in 61.2 % of the cases"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 50 the sample results in p_values below .05 in'</span>, n_50_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "At n = 50 the sample results in p_values below .05 in 80.3 % of the cases"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 100 the sample results in p_values below .05 in'</span>, n_100_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "At n = 100 the sample results in p_values below .05 in 97.9 % of the cases"</code></pre>
+</div>
+</div>
+<p>Consider your results in the context of a lake resource manager. This resource manager is trying to decide if increasing lake trout abundances are causing a decline in cutthroat trout. They collect data from thirty lakes, fit a linear model, and find a p value for the coefficient of lake trout of 0.11. The manager says “With a p value this high, I don’t think lake trout are causing the decline.” <strong>How would you respond to the manager’s interpretation?</strong></p>
+<p>I would respond that the initial interpretation makes sense, however thirty lakes may not be enough to see a full relationship. With sample data we can see that the n(30) leads to roughly half of the p-values being higher than .05.</p>
+</section>
+<section id="how-much-do-lake-trout-affect-cutthroat-trout" class="level2">
+<h2 class="anchored" data-anchor-id="how-much-do-lake-trout-affect-cutthroat-trout">How much do lake trout affect cutthroat trout?</h2>
+<p>Now we’ll answer the question “how much do lake trout affect cutthroat trout?” with a confidence interval. This part of the homework will use bootstrapping to estimate the confidence interval for the lake trout coefficient. You’ll repeat this process for both a large and a small sample, comparing how the sample size affects the width of the confidence interval.</p>
+<p>In the following code chunk, draw a sample from <code>lake_pop</code> with 100 observations in it. Call it <code>big_sample</code>. Use <code>map_dbl()</code> to make a vector called <code>big_boot</code> with 1,000 bootstrap samples of the lake trout coefficient. Make each bootstrap sample by:</p>
+<ol type="1">
+<li>Draw a sample from <code>big_sample</code> <em>with replacement</em></li>
+<li>Fit a linear model to the sample with replacement</li>
+<li>Return the lake trout coefficient</li>
+</ol>
+<p>Use the <code>quantile()</code> function on <strong><code>big_boot</code></strong> to construct the 95% CI of the lake trout coefficient.</p>
+<p>Then, repeat this process for a smaller sample size. Draw <code>small_sample</code> with 30 observations, use it to make <code>small_boot</code>, and construct the 95% CI of the lake trout coefficient.</p>
+<p><strong>Compare the CIs for the two samples. How did the width of the CI change from the large to the small sample?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>big_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">100</span>), ]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>big_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>small_sample <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">30</span>), ]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>small_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_100 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The 95% ci for the n_100 bootstrap is between: "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "-3.06471810419812 and -0.953364044281499"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_30 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The 95% ci for the n_30 bootstrap is between: "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "-4.01761135737985 and 0.265652651332936"</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-effect-of-lake-trout-on-cutthroat" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-effect-of-lake-trout-on-cutthroat">Visualizing the effect of lake trout on cutthroat</h2>
+<p>In the final part of this homework, you’ll visualize the CI of the response (cutthroat trout) with respect to the predictor (lake trout). This CI provides an informative view of the uncertainty in the sample, because it integrates the potential sampling error in both coefficients <em>and</em> the variation in the predictor. Consider the following question:</p>
+<p>“What’s the average cutthroat abundance in a lake with 80 lake trout?”</p>
+<p>The CIs of the coefficients alone are insufficient to provide a useful answer. But the CI of the response provides exactly that.</p>
+<p>We will build the CI of the response manually when we get to more complex models in the next theme of the course. For now, you’ll use <code>geom_smooth()</code> as a shortcut, and focus on interpretation of the figure. <code>geom_smooth()</code> takes three parameters relevant to this CI:</p>
+<ul>
+<li><p><code>method</code> specifies what model to use. Set it to <code>"lm"</code> to tell it to use a linear model.</p></li>
+<li><p><code>formula</code> specifies the model formula. Set it to <code>y ~ x</code> to tell it we’re using 1 predictor and response.</p></li>
+<li><p><code>se</code> specifies whether to display the CI of the response. Set it to <code>TRUE</code>.</p></li>
+</ul>
+<p>Plot <code>big_sample</code> as a scatter plot. Add the best fit line and CI of the response using <code>geom_smooth()</code>. Repeat the process for <code>small_sample</code>. Use the plots to answer the following questions.</p>
+<div class="cell">
+
+</div>
+<p><strong>What is the expected (average) abundance of cutthroat trout in a lake with 80 lake trout according to the model fit to the <em>larger</em> sample?</strong></p>
+<p><strong>Same question, but according to the model fit to the <em>smaller</em> sample?</strong></p>
+<p><strong>How wide are the 95% CIs for cutthroat trout abundance in lakes with 80 lake trout in both models?</strong></p>
+<p><strong>Consider the mean response in the population itself (the “true” mean response). This is the line defined by the population parameters</strong> <span class="math inline">\(\beta_0\)</span> <strong>and</strong> <span class="math inline">\(\beta_1\)</span><strong>.</strong> <strong>Are 95% CIs constructed from small sample models more, less, or equally likely to cover the population mean response than large sample models?</strong></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

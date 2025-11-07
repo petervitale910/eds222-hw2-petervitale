@@ -107,22 +107,21 @@ Call `p_dist` for `n`'s of 30, 50, and 100. **What fraction of the p values are 
 #| label: small-n-pval
 
 p_dist <- function(n){
+  map_dbl(1:1000, ~{
 trout_sample  <- trout_sp[sample(nrow(trout_sp), n), ]
 trout_lm <- lm(cutthroat ~ lake_trout, trout_sample)
 trout_lm_summary <- summary(trout_lm)
 trout_coefs <- trout_lm_summary$coefficients[2, 4]
 return(trout_coefs)
+})
 }
 
 
-n_30 <- map_dbl(1:1000, ~ p_dist(30))
-n_30_fraction <- sum(n_30 < .05) / length(n_30)
+n_30_fraction <- sum(p_dist(30) < .05) / length(p_dist(30))
 
-n_50 <-map_dbl(1:1000, ~ p_dist(50))
-n_50_fraction <- sum(n_50 < .05) / length(n_50)
+n_50_fraction <- sum(p_dist(50) < .05) / length(p_dist(50))
 
-n_100 <-map_dbl(1:1000, ~ p_dist(100))
-n_100_fraction <- sum(n_100 < .05) / length(n_100)
+n_100_fraction <- sum(p_dist(100) < .05) / length(p_dist(100))
 
 print(paste('At n = 30 the sample results in p_values below .05 in', n_30_fraction * 100,'% of the cases'))
 print(paste('At n = 50 the sample results in p_values below .05 in', n_50_fraction * 100,'% of the cases'))
@@ -159,7 +158,7 @@ boot_sample = sample(nrow(big_sample), 100, replace = TRUE)
 one_boot <- big_sample[boot_sample, ]
 trout_lm <- lm(cutthroat ~ lake_trout, one_boot)
 trout_lm_summary <- summary(trout_lm)
-trout_coefs <- trout_lm_summary$coefficients[2, 4]
+trout_coefs <- trout_lm_summary$coefficients[2, 1]
 return(trout_coefs)
   })
 
@@ -170,7 +169,7 @@ boot_sample = sample(nrow(big_sample), 30, replace = TRUE)
 one_boot <- big_sample[boot_sample, ]
 trout_lm <- lm(cutthroat ~ lake_trout, one_boot)
 trout_lm_summary <- summary(trout_lm)
-trout_coefs <- trout_lm_summary$coefficients[2, 4]
+trout_coefs <- trout_lm_summary$coefficients[2, 1]
 return(trout_coefs)
   })
 
