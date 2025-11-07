@@ -165,14 +165,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Lake Trout'</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Cutthroat Trout'</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Sample of Relationship between Trout species'</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">'Plot of 300 random points (originally 100,000 points)'</span>)<span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_clean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Sample of Relationship between Trout species'</span>)<span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_clean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-pop" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="hw2_files/figure-html/fig-pop-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: <strong>?(caption)</strong></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Plot of 300 random points (originally 100,000 points)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -181,26 +180,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>What’s the coefficient for the effect of lake trout on cutthroat trout in your population? What is it in each of your three samples?</strong></p>
 <p>Use <code>lm()</code> to estimate each of the coefficients.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, trout_sp);<span class="fu">summary</span>(trout_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample_list <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="sc">~</span>{</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="st">'lake_spl'</span>,.x), <span class="fu">slice_sample</span>(trout_sp, <span class="at">n=</span> <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), <span class="at">envir =</span> .GlobalEnv)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(sample_list)) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>lake_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, <span class="at">data =</span> sample_list[[i]])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'Lake_spl'</span>,{i}, <span class="st">' coefficients are:'</span>))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">coef</span>(lake_lm))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = cutthroat ~ lake_trout, data = trout_sp)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--526.63  -80.86   -0.09   80.77  504.29 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 802.22844    1.94336   412.8   &lt;2e-16 ***
-lake_trout   -2.51602    0.01905  -132.1   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 120.5 on 99998 degrees of freedom
-Multiple R-squared:  0.1485,    Adjusted R-squared:  0.1485 
-F-statistic: 1.744e+04 on 1 and 99998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>[1] "Lake_spl1 coefficients are:"
+(Intercept)  lake_trout 
+ 744.452443   -2.170286 
+[1] "Lake_spl2 coefficients are:"
+(Intercept)  lake_trout 
+ 864.122683   -3.201993 
+[1] "Lake_spl3 coefficients are:"
+(Intercept)  lake_trout 
+ 991.984445   -4.464071 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pop_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, <span class="at">data =</span> trout_sp)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'Population coefficients are:'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Population coefficients are:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">coef</span>(pop_lm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  lake_trout 
+ 802.228444   -2.516023 </code></pre>
 </div>
 </div>
 </section>
@@ -240,34 +254,34 @@ body_mass_g_pval &lt;- penguin_summary$coefficients[2, 4]</code></pre>
 </ol>
 <p>Call <code>p_dist</code> for <code>n</code>’s of 30, 50, and 100. <strong>What fraction of the p values are less than 0.05 for each sample size?</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span>{</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>trout_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), n), ]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, trout_sample)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>n_30_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>))</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>n_50_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>))</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>n_100_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>))</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 30 the sample results in p_values below .05 in'</span>, n_30_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span>{</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>trout_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), n), ]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, trout_sample)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>n_30_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">30</span>))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>n_50_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">50</span>))</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>n_100_fraction <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>) <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">p_dist</span>(<span class="dv">100</span>))</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 30 the sample results in p_values below .05 in'</span>, n_30_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "At n = 30 the sample results in p_values below .05 in 61.2 % of the cases"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 50 the sample results in p_values below .05 in'</span>, n_50_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 50 the sample results in p_values below .05 in'</span>, n_50_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "At n = 50 the sample results in p_values below .05 in 80.3 % of the cases"</code></pre>
+<pre><code>[1] "At n = 50 the sample results in p_values below .05 in 80 % of the cases"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 100 the sample results in p_values below .05 in'</span>, n_100_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'At n = 100 the sample results in p_values below .05 in'</span>, n_100_fraction <span class="sc">*</span> <span class="dv">100</span>,<span class="st">'% of the cases'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "At n = 100 the sample results in p_values below .05 in 97.9 % of the cases"</code></pre>
+<pre><code>[1] "At n = 100 the sample results in p_values below .05 in 98.3 % of the cases"</code></pre>
 </div>
 </div>
 <p>Consider your results in the context of a lake resource manager. This resource manager is trying to decide if increasing lake trout abundances are causing a decline in cutthroat trout. They collect data from thirty lakes, fit a linear model, and find a p value for the coefficient of lake trout of 0.11. The manager says “With a p value this high, I don’t think lake trout are causing the decline.” <strong>How would you respond to the manager’s interpretation?</strong></p>
@@ -286,43 +300,57 @@ body_mass_g_pval &lt;- penguin_summary$coefficients[2, 4]</code></pre>
 <p>Then, repeat this process for a smaller sample size. Draw <code>small_sample</code> with 30 observations, use it to make <code>small_boot</code>, and construct the 95% CI of the lake trout coefficient.</p>
 <p><strong>Compare the CIs for the two samples. How did the width of the CI change from the large to the small sample?</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>big_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">100</span>), ]</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>big_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>small_sample <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">30</span>), ]</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>small_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_100 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>big_sample  <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">100</span>), ]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>big_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>small_sample <span class="ot">&lt;-</span> trout_sp[<span class="fu">sample</span>(<span class="fu">nrow</span>(trout_sp), <span class="dv">30</span>), ]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>small_boot <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i){</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(big_sample), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>one_boot <span class="ot">&lt;-</span> big_sample[boot_sample, ]</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>trout_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(cutthroat <span class="sc">~</span> lake_trout, one_boot)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>trout_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(trout_lm)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>trout_coefs <span class="ot">&lt;-</span> trout_lm_summary<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(trout_coefs)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_100 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "The 95% ci for the n_100 bootstrap is between: "</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "-3.06471810419812 and -0.953364044281499"</code></pre>
+<pre><code>[1] "-2.78941721243861 and -0.965114904258745"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_30 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The 95% ci for the n_30 bootstrap is between: '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "The 95% ci for the n_30 bootstrap is between: "</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">025</span>),<span class="st">'and'</span>, <span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "-4.01761135737985 and 0.265652651332936"</code></pre>
+<pre><code>[1] "-3.96710127918052 and -0.0638454448170035"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'The widths of the two sample 95% CI are:'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The widths of the two sample 95% CI are:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'Big: '</span>, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">975</span>)<span class="sc">-</span> <span class="fu">quantile</span>(big_boot, <span class="at">probs =</span> .<span class="dv">025</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Big: 1.82430230817987"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'Small: '</span>,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">975</span>) <span class="sc">-</span> <span class="fu">quantile</span>(small_boot, <span class="at">probs =</span> .<span class="dv">025</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Small: 3.90325583436352"</code></pre>
 </div>
 </div>
 </section>
@@ -339,12 +367,46 @@ body_mass_g_pval &lt;- penguin_summary$coefficients[2, 4]</code></pre>
 </ul>
 <p>Plot <code>big_sample</code> as a scatter plot. Add the best fit line and CI of the response using <code>geom_smooth()</code>. Repeat the process for <code>small_sample</code>. Use the plots to answer the following questions.</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>big_sample_plot <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(big_sample, <span class="fu">aes</span>(lake_trout, cutthroat))<span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">formula =</span> y<span class="sc">~</span>x, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">x=</span> <span class="st">'Lake Trout (Count)'</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">'Cutthroat Trout (Count)'</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">'Big Sample of Trout Species'</span>)<span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_clean</span>()</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>small_sample_plot <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(small_sample, <span class="fu">aes</span>(lake_trout, cutthroat))<span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">formula =</span> y<span class="sc">~</span>x, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">x=</span> <span class="st">'Lake Trout (Count)'</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">'Cutthroat Trout (Count)'</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">'Small Sample of Trout Species'</span>)<span class="sc">+</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_clean</span>()</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>small_sample_plot<span class="sc">/</span>big_sample_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw2_files/figure-html/ci-mean-1.png" class="img-fluid" width="576"></p>
+</div>
 </div>
 <p><strong>What is the expected (average) abundance of cutthroat trout in a lake with 80 lake trout according to the model fit to the <em>larger</em> sample?</strong></p>
+<ul>
+<li>Visually it is around 590</li>
+</ul>
 <p><strong>Same question, but according to the model fit to the <em>smaller</em> sample?</strong></p>
+<ul>
+<li>Visually it is around 580</li>
+</ul>
 <p><strong>How wide are the 95% CIs for cutthroat trout abundance in lakes with 80 lake trout in both models?</strong></p>
+<ul>
+<li><p>Big Model: visually the 95% CI is between 570 and 610</p></li>
+<li><p>Small Model: visually the 95% CI is between 500 and 660</p></li>
+</ul>
 <p><strong>Consider the mean response in the population itself (the “true” mean response). This is the line defined by the population parameters</strong> <span class="math inline">\(\beta_0\)</span> <strong>and</strong> <span class="math inline">\(\beta_1\)</span><strong>.</strong> <strong>Are 95% CIs constructed from small sample models more, less, or equally likely to cover the population mean response than large sample models?</strong></p>
+<ul>
+<li>Small sample means are less likely to cover the population mean. The larger quantity of values in the large sample, means more about the model can be explained, leading to the confidence in our population mean with a smaller range.</li>
+</ul>
 </section>
 
 </main>

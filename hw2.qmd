@@ -43,6 +43,7 @@ trout_sp <- data.frame(lake_trout, cutthroat)
 
 ```{r}
 #| label: fig-pop
+#| fig-cap: ' Plot of 300 random points (originally 100,000 points)'
 trout_sample  <- trout_sp[sample(nrow(trout_sp), 300), ]
 
 
@@ -50,8 +51,7 @@ ggplot(trout_sample, aes(x = lake_trout, y = cutthroat))+
   geom_point()+
   labs(x = 'Lake Trout',
        y = 'Cutthroat Trout',
-       title = 'Sample of Relationship between Trout species',
-       subtitle = 'Plot of 300 random points (originally 100,000 points)')+
+       title = 'Sample of Relationship between Trout species')+
   ggthemes::theme_clean()
 
 ```
@@ -65,7 +65,26 @@ Use `lm()` to estimate each of the coefficients.
 ```{r}
 #| label: pop-spl-coefs
 
-trout_lm <- lm(cutthroat ~ lake_trout, trout_sp);summary(trout_lm)
+
+sample_list <- map(1:3, ~{
+
+ assign(paste0('lake_spl',.x), slice_sample(trout_sp, n= 30, replace = FALSE), envir = .GlobalEnv)
+})
+
+for (i in seq_along(sample_list)) {
+
+lake_lm <- lm(cutthroat ~ lake_trout, data = sample_list[[i]])
+
+
+print(paste0('Lake_spl',{i}, ' coefficients are:'))
+print(coef(lake_lm))
+}
+
+pop_lm <- lm(cutthroat ~ lake_trout, data = trout_sp)
+
+
+print('Population coefficients are:')
+print(coef(pop_lm))
 
 ```
 
@@ -178,6 +197,12 @@ print(paste(quantile(big_boot, probs = .025),'and', quantile(big_boot, probs = .
 
 print('The 95% ci for the n_30 bootstrap is between: ')
 print(paste(quantile(small_boot, probs = .025),'and', quantile(small_boot, probs = .975)))
+
+print('The widths of the two sample 95% CI are:')
+print(paste0('Big: ', 
+             quantile(big_boot, probs = .975)- quantile(big_boot, probs = .025)))
+print(paste0('Small: ',
+             quantile(small_boot, probs = .975) - quantile(small_boot, probs = .025)))
 ```
 
 ## Visualizing the effect of lake trout on cutthroat
@@ -198,15 +223,44 @@ We will build the CI of the response manually when we get to more complex models
 
 Plot `big_sample` as a scatter plot. Add the best fit line and CI of the response using `geom_smooth()`. Repeat the process for `small_sample`. Use the plots to answer the following questions.
 
-```{r}
+```{r fig.width=6, fig.height=7}
 #| label: ci-mean
 
+library(patchwork)
+big_sample_plot <-  ggplot(big_sample, aes(lake_trout, cutthroat))+
+  geom_point()+
+  geom_smooth(method = 'lm', formula = y~x, se = TRUE)+
+  labs( x= 'Lake Trout (Count)',
+        y = 'Cutthroat Trout (Count)',
+        title = 'Big Sample of Trout Species')+
+  ggthemes::theme_clean()
+  
+  
+small_sample_plot <-  ggplot(small_sample, aes(lake_trout, cutthroat))+
+  geom_point()+
+  geom_smooth(method = 'lm', formula = y~x, se = TRUE)+
+  labs( x= 'Lake Trout (Count)',
+        y = 'Cutthroat Trout (Count)',
+        title = 'Small Sample of Trout Species')+
+  ggthemes::theme_clean()
+
+small_sample_plot/big_sample_plot
 ```
 
 **What is the expected (average) abundance of cutthroat trout in a lake with 80 lake trout according to the model fit to the *larger* sample?**
 
+-  Visually it is around 590
+
 **Same question, but according to the model fit to the *smaller* sample?**
+
+-  Visually it is around 580
 
 **How wide are the 95% CIs for cutthroat trout abundance in lakes with 80 lake trout in both models?**
 
+-  Big Model: visually the 95% CI is between 570 and 610
+
+-  Small Model: visually the 95% CI is between 500 and 660
+
 **Consider the mean response in the population itself (the "true" mean response). This is the line defined by the population parameters** $\beta_0$ **and** $\beta_1$**.** **Are 95% CIs constructed from small sample models more, less, or equally likely to cover the population mean response than large sample models?**
+
+- Small sample means are less likely to cover the population mean. The larger quantity of values in the large sample, means more about the model can be explained, leading to the confidence in our population mean with a smaller range. 
